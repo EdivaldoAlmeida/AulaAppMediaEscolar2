@@ -8,8 +8,25 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
+
+    Button btnCalcular;
+    EditText editMateria;
+    EditText editnotaProva;
+    EditText editnotaTrabalho;
+    TextView txtResultado;
+    TextView txtSitacaoFinal;
+
+    double notaProva;
+    double notaTrabalho;
+    double media;
+
+    String resultado;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,6 +34,35 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        //Lincando as variáveis com os ids do formulário.
+        editMateria = findViewById(R.id.editMateria);
+        editnotaProva = findViewById(R.id.editNotaProva);
+        editnotaTrabalho = findViewById(R.id.editNotaTrabalho);
+        txtResultado = findViewById(R.id.txtResultado);
+        txtSitacaoFinal = findViewById(R.id.txtSituacaoFinal);
+
+        btnCalcular = findViewById(R.id.btnCalcular);
+
+
+        //Programando o botão calcular
+        btnCalcular.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //Aqui é necessário fazer um parse de String p/ Double.
+                notaProva = Double.parseDouble(editnotaProva.getText().toString());
+                notaTrabalho = Double.parseDouble(editnotaTrabalho.getText().toString());
+
+                media = (notaProva + notaTrabalho)/2; //calculando a média
+                txtResultado.setText(String.valueOf(media));//atenção ao cast de Double p/ String
+
+                if(media>=7) txtSitacaoFinal.setText("Aprovado");
+                else txtSitacaoFinal.setText("Reprovado");
+            }
+        });
+
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -28,22 +74,22 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+
+
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_sair) {
+            finish();
             return true;
         }
 

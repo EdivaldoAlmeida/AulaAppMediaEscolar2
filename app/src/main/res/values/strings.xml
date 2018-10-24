@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">AulaAppMediaEscolar</string>
-    <string name="action_settings">Settings</string>
+    <string name="app_name">App Media Escolar</string>
+    <string name="action_sair">Sair</string>
 </resources>
